@@ -254,6 +254,18 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label for="exampleInputEmail1">Ubicación</label>
+                                <select id="ubicacion" name="ubicacion" class="form-control">
+                                    <option value="0">Seleccione la especialidad...</option>
+                                    <option value="1">El Bosque</option>
+                                    <option value="2">Santiago Centro</option>
+                                    <option value="3">Providencia</option>
+                                    <option value="4">Ñuñoa</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label for="exampleInputEmail1">Especialidad</label>
                                 <select id="especialidad" name="especialidad" class="form-control">
                                     <option value="0">Seleccione la especialidad...</option>
@@ -273,8 +285,7 @@
                     </div>
                     <div class="form-group">
                     </div>
-
-                    <button type="submit" class="btn tf-btn btn-default">Reservar</button>
+                    <button type="button" class="btn tf-btn btn-primary" onclick="buscar_horas();"><span class="fa fa-search"></span>  Buscar</button>
                 </form>
 
             </div>
@@ -290,7 +301,7 @@
                     <hr>
                 </div>
                 <div class="clearfix"></div>
-                <small><em>Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</em></small>
+                <small><em>Estimado(a) usuario(a), sólo pueden hacer ingreso al sistema, el personal autorizado por la clinica.</em></small>
             </div>
             <div class="space"></div>
 
@@ -325,5 +336,10 @@
 <!-- Javascripts
 ================================================== -->
 <script type="text/javascript" src="{{asset('template/js/main.js')}}"></script>
+<script>
+    function buscar_horas(){
+        alert("hola");
+    }
+</script>
 </body>
 </html>
