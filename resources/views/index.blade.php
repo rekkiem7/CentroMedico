@@ -251,7 +251,20 @@
                 </div>
 
                 <form>
+
+
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Región</label>
+                                <select id="region" name="region" class="form-control">
+                                    <option value="0">Seleccione una región..</option>
+                                    @foreach($regiones as $region)
+                                        <option value="{{$region->id}}">{{$region->id.' - '.$region->nombre}}</option>
+                                        @endforeach
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Ubicación</label>
