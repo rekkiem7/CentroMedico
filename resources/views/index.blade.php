@@ -257,7 +257,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Región</label>
-                                <select id="region" name="region" class="form-control">
+                                <select id="region" name="region" class="form-control" onchange="get_comunas()">
                                     <option value="0">Seleccione una región..</option>
                                     @foreach($regiones as $region)
                                         <option value="{{$region->id}}">{{$region->id.' - '.$region->nombre}}</option>
@@ -267,25 +267,26 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="exampleInputEmail1">Ubicación</label>
-                                <select id="ubicacion" name="ubicacion" class="form-control">
-                                    <option value="0">Seleccione la especialidad...</option>
-                                    <option value="1">El Bosque</option>
-                                    <option value="2">Santiago Centro</option>
-                                    <option value="3">Providencia</option>
-                                    <option value="4">Ñuñoa</option>
+                                <label for="exampleInputEmail1">Comuna</label>
+                                <select id="comuna" name="comuna" class="form-control" onchange="get_clinicas()">
+                                    <option value="0">Seleccione una comuna...</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label for="exampleInputEmail1">Clinica (Sucursal)</label>
+                                <select id="clinica" name="clinica" class="form-control" onchange="get_especialidades()">
+                                    <option value="0">Seleccione la clinica...</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label for="exampleInputEmail1">Especialidad</label>
                                 <select id="especialidad" name="especialidad" class="form-control">
                                     <option value="0">Seleccione la especialidad...</option>
-                                    <option value="1">Medicina General</option>
-                                    <option value="2">Traumatología</option>
-                                    <option value="3">Kinesiología</option>
-                                    <option value="4">Odontología</option>
                                 </select>
                             </div>
                         </div>
@@ -337,6 +338,7 @@
         </div>
     </div>
 </nav>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript" src="{{asset('template/js/jquery.1.11.1.js')}}"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -350,8 +352,115 @@
 ================================================== -->
 <script type="text/javascript" src="{{asset('template/js/main.js')}}"></script>
 <script>
+    function get_especialidades()
+    {
+        var clinica=$('#clinica').val();
+        $('#especialidad').empty();
+        $("#especialidad").append(new Option("Seleccione una especialidad...", 0));
+        if(clinica==0)
+        {
+            alert("Debe seleccionar una clinica");
+        }else{
+            $.ajax({
+                url: '{{url()}}/get_especialidades',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:{clinica:clinica},
+                success:function(data)
+                {
+                    var datos=JSON.parse(data);
+                    $('#especialidad').empty();
+                    $("#especialidad").append(new Option("Seleccione una especialidad...", 0));
+                    if(datos.length>0)
+                    {
+                        for(var i=0;i<datos.length;i++)
+                        {
+                            $("#especialidad").append(new Option(datos[i]['nombre'], datos[i]['id']));
+                        }
+                    }else{
+                        alert("No existen especialidad asociadas a dicha clinica");
+                    }
+                }
+            });
+        }
+    }
+
+    function get_clinicas(){
+        var comuna=$('#comuna').val();
+        $('#especialidad').empty();
+        $("#especialidad").append(new Option("Seleccione una especialidad...", 0));
+        if(comuna==0)
+        {
+            alert("Debe seleccionar una comuna");
+        }else{
+            $.ajax({
+                url: '{{url()}}/get_clinicas',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:{comuna:comuna},
+                success:function(data)
+                {
+                    var datos=JSON.parse(data);
+                    $('#clinica').empty();
+                    $("#clinica").append(new Option("Seleccione una clinica...", 0));
+                    if(datos.length>0)
+                    {
+                        for(var i=0;i<datos.length;i++)
+                        {
+                            $("#clinica").append(new Option(datos[i]['nombre'], datos[i]['id']));
+                        }
+                    }else{
+                        alert("No existen clinicas asociadas a dicha comuna");
+                    }
+                }
+            });
+        }
+    }
+    function get_comunas()
+    {
+        var region=$('#region').val();
+        $('#comuna').empty();
+        $("#comuna").append(new Option("Seleccione una comuna...", 0));
+        $('#clinica').empty();
+        $("#clinica").append(new Option("Seleccione una clinica...", 0));
+        $('#especialidad').empty();
+        $("#especialidad").append(new Option("Seleccione una especialidad...", 0));
+        if(region==0)
+        {
+           alert("Debe seleccionar una región");
+        }else{
+            $.ajax({
+                url: '{{url()}}/get_comunas',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:{region:region},
+                success:function(data)
+                {
+                    var datos=JSON.parse(data);
+                    $('#comuna').empty();
+                    $("#comuna").append(new Option("Seleccione una comuna...", 0));
+                    if(datos.length>0)
+                    {
+                        for(var i=0;i<datos.length;i++)
+                        {
+                            $("#comuna").append(new Option(datos[i]['nombre'], datos[i]['id']));
+                        }
+                    }else{
+                        alert("No existen clinicas asociadas a ninguna comuna de la región seleccionada");
+                    }
+                }
+            });
+        }
+
+    }
     function buscar_horas(){
-        alert("hola");
+
     }
 </script>
 </body>

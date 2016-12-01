@@ -36,3 +36,21 @@ $factory->define(App\Comuna::class, function (Faker\Generator $faker) {
         'visible' => $faker->name
     ];
 });
+
+$factory->define(App\Clinica::class, function (Faker\Generator $faker) {
+    return [
+        'id' => $faker->name,
+        'nombre' => $faker->name,
+        'id_comuna' => $faker->name,
+        'visible' => $faker->name
+    ];
+});
+
+$factory->define(App\Especialidad::class, function (Faker\Generator $faker) {
+    return [
+        'id' => $faker->name,
+        'nombre' => $faker->name,
+        'id_clinica' => $faker->name,
+        'visible' => $faker->name
+    ];
+});

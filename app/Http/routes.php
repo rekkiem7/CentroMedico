@@ -12,3 +12,7 @@
 */
 
 Route::get('/','GeneralController@index');
+Route::post('/get_comunas','GeneralController@get_comunas');
+Route::post('/get_clinicas','GeneralController@get_clinicas');
+Route::post('/get_especialidades','GeneralController@get_especialidades');
+
