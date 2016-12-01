@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TableClinicaSeeder::class);
         $this->call(TableEspecialidadSeeder::class);
         $this->call(TableEspecialistaSeeder::class);
+        $this->call(TablePlanificacionHoraSeeder::class);
         Model::reguard();
     }
 }

@@ -63,3 +63,17 @@ $factory->define(App\Especialista::class, function (Faker\Generator $faker) {
         'visible' => $faker->name
     ];
 });
+
+$factory->define(App\PlanificacionHora::class, function (Faker\Generator $faker) {
+    return [
+        'id' => $faker->name,
+        'fecha' => $faker->name,
+        'desde' => $faker->name,
+        'hasta' => $faker->name,
+        'id_especialista' => $faker->name,
+        'id_clinica' => $faker->name,
+        'user_auth' => $faker->name,
+        'estado' => $faker->name,
+        'visible' => $faker->name
+    ];
+});

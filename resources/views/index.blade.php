@@ -302,12 +302,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Fecha</label>
-                                <input type="date" class="form-control">
-                            </div>
-                        </div>
+
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <button type="button" class="btn tf-btn btn-primary" onclick="buscar_horas();"><span class="fa fa-search"></span>  Buscar</button>
                         </div>
@@ -546,6 +541,41 @@
 
     }
 
+    function buscar_horas_final(fecha){
+        var clinica=$('#clinica').val();
+        var especialidad=$('#especialidad').val();
+        var especialista=$('#especialista').val();
+
+        if(clinica==0)
+        {
+            alert("Debe seleccionar una clinica");
+        }else{
+            if(especialidad==0)
+            {
+                alert("Debe seleccionar una especialidad");
+            }else{
+                $.ajax({
+                    url: '{{url()}}/get_detalle_hora',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data:{clinica:clinica,especialidad:especialidad,especialista:especialista,fecha:fecha},
+                    success:function(data)
+                    {
+                        if(data!=0)
+                        {
+
+                        }else{
+                            alert("No se encontraron horas disponibles");
+                        }
+                    }
+                });
+            }
+        }
+
+    }
+
     $(document).ready(function()
     {
         var url=$('#url').val();
@@ -580,12 +610,12 @@
                 element.bind('click', function() {
                     $('#verHorasDisponibles').modal();
                     var fecha=moment(event.start).format("DD-MM-YYYY");
-                    alert(fecha);
+                    buscar_horas_final(fecha);
                 });
             },
 
             dayClick: function(date, jsEvent, view) {
-               // $('#agregar_tarea').modal();
+
             },
             events: [
                 {
