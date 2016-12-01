@@ -8,7 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Centro Médico</title>
 @include('librerias_template')
+<style>
 
+</style>
 
 
 </head>
@@ -310,7 +312,7 @@
                         <button type="button" class="btn tf-btn btn-primary" onclick="buscar_horas();"><span class="fa fa-search"></span>  Buscar</button>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><br><br>
-                            <div id="calendar"></div>
+                            <div id="calendar" ></div>
                         </div>
                     </div>
 
@@ -333,11 +335,29 @@
                 <small><em>Estimado(a) usuario(a), sólo pueden hacer ingreso al sistema, el personal autorizado por la clinica.</em></small>
             </div>
             <div class="space"></div>
+            <div class="row">
+                <div class="col-lg-offset-2 col-lg-8 ">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Usuario</label>
+                        <input type="text" class="form-control" id="usuario" name="usuario"/>
+                    </div>
+                </div>
+                <div class="col-lg-offset-2 col-lg-8 ">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="password" name="password"/>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <center><button class="btn btn-primary">Ingresar</button></center>
+                </div>
+
+            </div>
 
 
     </div>
 </div>
-
+<input type="hidden" id="url" name="url" value="{{url()}}" />
 <nav id="footer">
     <div class="container">
         <div class="pull-left fnav">
@@ -526,6 +546,7 @@
 
     $(document).ready(function()
     {
+        var url=$('#url').val();
         $('#calendar').fullCalendar({
 
             //  eventSources: ['{{url()}}/carga_eventos'],
@@ -537,8 +558,7 @@
             firstDay:1,
             height: '100%',
             header: {
-                center: 'prev,title,next',
-                right: 'month,agendaWeek,agendaDay'
+                center: 'prev,title,next'
             },
             buttonText: {
                 day: 'Día',
@@ -550,7 +570,13 @@
             timeFormat: 'HH:mm',
 
             eventRender: function(event, element, view,calEvent) {
-
+                $(element).css('height','50');
+                $(element).css('background-color','#2CC067');
+                element.find(".fc-content").append('<br><center><img src="'+url+'/iconos/ok.png" width="20px" height="20px"/></center>');
+                element.bind('click', function() {
+                    alert("viendo evento");
+                    alert(url);
+                });
             },
 
             dayClick: function(date, jsEvent, view) {
@@ -558,59 +584,18 @@
             },
             events: [
                 {
-                    title: 'All Day Event',
-                    start: '2016-12-01'
+                    start: '2016-12-01T00:00:00',
+                    end:'2016-12-01T23:59:59'
                 },
                 {
-                    title: 'Long Event',
-                    start: '2016-12-07',
-                    end: '2016-12-10'
+                    start: '2016-12-06T00:00:00',
+                    end:'2016-12-06T23:59:59'
                 },
                 {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: '2016-12-09T16:00:00'
+                    start: '2016-12-09T00:00:00',
+                    end:'2016-12-09T23:59:59'
                 },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: '2016-12-16T16:00:00'
-                },
-                {
-                    title: 'Conference',
-                    start: '2016-12-11',
-                    end: '2016-12-13'
-                },
-                {
-                    title: 'Meeting',
-                    start: '2016-12-12T10:30:00',
-                    end: '2016-12-12T12:30:00'
-                },
-                {
-                    title: 'Lunch',
-                    start: '2016-12-12T12:00:00'
-                },
-                {
-                    title: 'Meeting',
-                    start: '2016-12-12T14:30:00'
-                },
-                {
-                    title: 'Happy Hour',
-                    start: '2016-12-12T17:30:00'
-                },
-                {
-                    title: 'Dinner',
-                    start: '2016-12-12T20:00:00'
-                },
-                {
-                    title: 'Birthday Party',
-                    start: '2016-12-13T07:00:00'
-                },
-                {
-                    title: 'Click for Google',
-                    url: 'http://google.com/',
-                    start: '2016-12-28'
-                }
+
             ]
 
         });
