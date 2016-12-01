@@ -568,11 +568,13 @@
             },
             axisFormat: 'HH:mm',
             timeFormat: 'HH:mm',
+            displayEventTime: false,
 
             eventRender: function(event, element, view,calEvent) {
                 $(element).css('height','50');
-                $(element).css('background-color','#2CC067');
-                element.find(".fc-content").append('<br><center><img src="'+url+'/iconos/ok.png" width="20px" height="20px"/></center>');
+                $(element).css('background-color','#32D774');
+                element.find(".fc-title").append('<center><img src="'+url+'/iconos/ok.png" width="25px" height="25px"/></center>');
+                //element.find(".fc-content").append('<br><center><img src="'+url+'/iconos/ok.png" width="20px" height="20px"/></center>');
                 element.bind('click', function() {
                     alert("viendo evento");
                     alert(url);
