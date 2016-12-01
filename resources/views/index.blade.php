@@ -357,6 +357,8 @@
 
     </div>
 </div>
+@include('ver_horas_disponible')
+
 <input type="hidden" id="url" name="url" value="{{url()}}" />
 <nav id="footer">
     <div class="container">
@@ -576,8 +578,9 @@
                 element.find(".fc-title").append('<center><img src="'+url+'/iconos/ok.png" width="25px" height="25px"/></center>');
                 //element.find(".fc-content").append('<br><center><img src="'+url+'/iconos/ok.png" width="20px" height="20px"/></center>');
                 element.bind('click', function() {
-                    alert("viendo evento");
-                    alert(url);
+                    $('#verHorasDisponibles').modal();
+                    var fecha=moment(event.start).format("DD-MM-YYYY");
+                    alert(fecha);
                 });
             },
 
