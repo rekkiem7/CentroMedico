@@ -54,3 +54,12 @@ $factory->define(App\Especialidad::class, function (Faker\Generator $faker) {
         'visible' => $faker->name
     ];
 });
+
+$factory->define(App\Especialista::class, function (Faker\Generator $faker) {
+    return [
+        'id' => $faker->name,
+        'nombre' => $faker->name,
+        'id_especialidad' => $faker->name,
+        'visible' => $faker->name
+    ];
+});

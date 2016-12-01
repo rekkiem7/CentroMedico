@@ -14,6 +14,7 @@ use App\Region;
 use App\Comuna;
 use App\Clinica;
 use App\Especialidad;
+use App\Especialista;
 
 class GeneralController extends Controller
 {
@@ -44,7 +45,13 @@ class GeneralController extends Controller
         $clinica=$_POST['clinica'];
         $datos=Especialidad::where('id_clinica',$clinica)->where('visible',1)->get();
         return json_encode($datos);
+    }
 
+    public function get_especialistas()
+    {
+        $especialidad=$_POST['especialidad'];
+        $datos=Especialista::where('id_especialidad',$especialidad)->where('visible',1)->get();
+        return json_encode($datos);
     }
     
 }

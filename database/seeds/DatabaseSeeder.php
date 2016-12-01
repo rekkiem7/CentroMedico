@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TableComunaSeeder::class);
         $this->call(TableClinicaSeeder::class);
         $this->call(TableEspecialidadSeeder::class);
+        $this->call(TableEspecialistaSeeder::class);
         Model::reguard();
     }
 }

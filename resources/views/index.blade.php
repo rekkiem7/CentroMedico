@@ -7,8 +7,10 @@
     <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Centro Médico</title>
-<head>
 @include('librerias_template')
+
+
+
 </head>
 <body>
 <!-- Navigation
@@ -285,8 +287,16 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Especialidad</label>
-                                <select id="especialidad" name="especialidad" class="form-control">
+                                <select id="especialidad" name="especialidad" class="form-control" onchange="get_especialistas()">
                                     <option value="0">Seleccione la especialidad...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Especialista</label>
+                                <select id="especialista" name="especialista" class="form-control">
+                                    <option value="0">Seleccione un especialista...</option>
                                 </select>
                             </div>
                         </div>
@@ -296,10 +306,15 @@
                                 <input type="date" class="form-control">
                             </div>
                         </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <button type="button" class="btn tf-btn btn-primary" onclick="buscar_horas();"><span class="fa fa-search"></span>  Buscar</button>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><br><br>
+                            <div id="calendar"></div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                    </div>
-                    <button type="button" class="btn tf-btn btn-primary" onclick="buscar_horas();"><span class="fa fa-search"></span>  Buscar</button>
+
+
                 </form>
 
             </div>
@@ -339,24 +354,66 @@
     </div>
 </nav>
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="{{asset('template/js/jquery.1.11.1.js')}}"></script>
+<script src="{{ asset ('plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+<link href="{{asset('plugins/fullcalendar/fullcalendar.css')}}" rel='stylesheet' />
+<link href="{{asset('plugins/fullcalendar/fullcalendar.print.css')}}" rel='stylesheet' media='print' />
+<script src="{{asset('plugins/fullcalendar/lib/moment.min.js')}}"></script>
+<script src="{{asset('plugins/fullcalendar/lib/jquery.min.js')}}"></script>
+<script src="{{asset('plugins/fullcalendar/fullcalendar.min.js')}}"></script>
+<script src="{{asset('plugins/fullcalendar/es.js')}}"></script>
+<script src="{{asset('template/js/owl.carousel.js')}}"></script>
 <script type="text/javascript" src="{{asset('template/js/bootstrap.js')}}"></script>
 <script type="text/javascript" src="{{asset('template/js/SmoothScroll.js')}}"></script>
 <script type="text/javascript" src="{{asset('template/js/jquery.isotope.js')}}"></script>
-
-<script src="{{asset('template/js/owl.carousel.js')}}"></script>
 
 <!-- Javascripts
 ================================================== -->
 <script type="text/javascript" src="{{asset('template/js/main.js')}}"></script>
 <script>
+
+    function get_especialistas()
+    {
+        var especialidad=$('#especialidad').val();
+        $('#especialista').empty();
+        $("#especialista").append(new Option("Seleccione un especialista...", 0));
+        if(especialidad==0)
+        {
+            alert("Debe seleccionar un especialista");
+        }else{
+            $.ajax({
+                url: '{{url()}}/get_especialistas',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:{especialidad:especialidad},
+                success:function(data)
+                {
+                    var datos=JSON.parse(data);
+                    $('#especialista').empty();
+                    $("#especialista").append(new Option("Todos", 0));
+                    if(datos.length>0)
+                    {
+                        for(var i=0;i<datos.length;i++)
+                        {
+                            $("#especialista").append(new Option(datos[i]['nombre'], datos[i]['id']));
+                        }
+                    }else{
+                        alert("No existen especialidad asociadas a dicha clinica");
+                    }
+                }
+            });
+        }
+    }
     function get_especialidades()
     {
         var clinica=$('#clinica').val();
         $('#especialidad').empty();
         $("#especialidad").append(new Option("Seleccione una especialidad...", 0));
+        $('#especialista').empty();
+        $("#especialista").append(new Option("Seleccione un especialista...", 0));
         if(clinica==0)
         {
             alert("Debe seleccionar una clinica");
@@ -391,6 +448,8 @@
         var comuna=$('#comuna').val();
         $('#especialidad').empty();
         $("#especialidad").append(new Option("Seleccione una especialidad...", 0));
+        $('#especialista').empty();
+        $("#especialista").append(new Option("Seleccione un especialista...", 0));
         if(comuna==0)
         {
             alert("Debe seleccionar una comuna");
@@ -429,6 +488,8 @@
         $("#clinica").append(new Option("Seleccione una clinica...", 0));
         $('#especialidad').empty();
         $("#especialidad").append(new Option("Seleccione una especialidad...", 0));
+        $('#especialista').empty();
+        $("#especialista").append(new Option("Seleccione un especialista...", 0));
         if(region==0)
         {
            alert("Debe seleccionar una región");
@@ -462,6 +523,98 @@
     function buscar_horas(){
 
     }
+
+    $(document).ready(function()
+    {
+        $('#calendar').fullCalendar({
+
+            //  eventSources: ['{{url()}}/carga_eventos'],
+            //timezone: 'UTC',
+            //default: true,
+            contentHeight: 'auto',
+            lang: 'es',
+            ignoreTimezone:true,
+            firstDay:1,
+            height: '100%',
+            header: {
+                center: 'prev,title,next',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            buttonText: {
+                day: 'Día',
+                month: 'Mes',
+                week: 'Semana',
+                today : 'Hoy'
+            },
+            axisFormat: 'HH:mm',
+            timeFormat: 'HH:mm',
+
+            eventRender: function(event, element, view,calEvent) {
+
+            },
+
+            dayClick: function(date, jsEvent, view) {
+               // $('#agregar_tarea').modal();
+            },
+            events: [
+                {
+                    title: 'All Day Event',
+                    start: '2016-12-01'
+                },
+                {
+                    title: 'Long Event',
+                    start: '2016-12-07',
+                    end: '2016-12-10'
+                },
+                {
+                    id: 999,
+                    title: 'Repeating Event',
+                    start: '2016-12-09T16:00:00'
+                },
+                {
+                    id: 999,
+                    title: 'Repeating Event',
+                    start: '2016-12-16T16:00:00'
+                },
+                {
+                    title: 'Conference',
+                    start: '2016-12-11',
+                    end: '2016-12-13'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2016-12-12T10:30:00',
+                    end: '2016-12-12T12:30:00'
+                },
+                {
+                    title: 'Lunch',
+                    start: '2016-12-12T12:00:00'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2016-12-12T14:30:00'
+                },
+                {
+                    title: 'Happy Hour',
+                    start: '2016-12-12T17:30:00'
+                },
+                {
+                    title: 'Dinner',
+                    start: '2016-12-12T20:00:00'
+                },
+                {
+                    title: 'Birthday Party',
+                    start: '2016-12-13T07:00:00'
+                },
+                {
+                    title: 'Click for Google',
+                    url: 'http://google.com/',
+                    start: '2016-12-28'
+                }
+            ]
+
+        });
+    });
 </script>
 </body>
 </html>
