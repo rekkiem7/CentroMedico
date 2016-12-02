@@ -9,7 +9,9 @@
     <title>Centro Médico</title>
 @include('librerias_template')
 <style>
-
+.fc h2{
+    font-size: 20px !important;
+}
 </style>
 
 
@@ -241,23 +243,17 @@
 ==========================================-->
 <div id="tf-contact" class="text-center">
     <div class="container">
-
+        <div class="section-title center">
+            <h2>Reserva <strong>tu hora</strong> con anticipación</h2>
+            <div class="line">
+                <hr>
+            </div>
+            <div class="clearfix"></div>
+            <small><em>Seleccione la especialidad y la fecha en que desea la atención</em></small>
+        </div>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-
-                <div class="section-title center">
-                    <h2>Reserva <strong>tu hora</strong> con anticipación</h2>
-                    <div class="line">
-                        <hr>
-                    </div>
-                    <div class="clearfix"></div>
-                    <small><em>Seleccione la especialidad y la fecha en que desea la atención</em></small>
-                </div>
-
                 <form>
-
-
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Región</label>
@@ -302,20 +298,27 @@
                                 </select>
                             </div>
                         </div>
-
+                </form>
+            </div>
+        </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <button type="button" class="btn tf-btn btn-primary" onclick="buscar_horas();"><span class="fa fa-search"></span>  Buscar Disponibilidad</button>
+                        <button type="button" class="btn tf-btn btn-primary" onclick="buscar_horas();"><span class="fa fa-search"></span>  Buscar Disponibilidad</button><br><br>
                         </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="alert alert-success">
+                                <strong>¡Atención!</strong> Al iniciar la búsqueda, en el <strong>calendario</strong> aparecerán los dias que poseen horas disponibles para la reservación.<br>
+                                <strong>Simbología</strong> : <img src="{{asset('iconos/ok.png')}}" width="25px" height="25px"/> días con horas disponibles<br>
+                                <strong>Para reservar</strong> : Debes hacer click en la imagen <img src="{{asset('iconos/ok.png')}}" width="25px" height="25px"/><br>
+                            </div>
+                        </div>
+
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><br><br>
                             <div id="calendar" ></div>
                         </div>
-                    </div>
 
 
-                </form>
 
-            </div>
-        </div>
+
 
     </div>
 </div>
