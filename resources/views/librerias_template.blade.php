@@ -23,6 +23,7 @@
 <script type="text/javascript" src="{{asset('template/js/modernizr.custom.js')}}"></script>
 <script src="{{asset('template/js/html5shiv.min.js')}}"></script>
 <script src="{{asset('template/js/respond.min.js')}}"></script>
+
 <style>
 .fc-left{
 display:none;

@@ -304,7 +304,7 @@
                         </div>
 
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <button type="button" class="btn tf-btn btn-primary" onclick="buscar_horas();"><span class="fa fa-search"></span>  Buscar</button>
+                        <button type="button" class="btn tf-btn btn-primary" onclick="buscar_horas();"><span class="fa fa-search"></span>  Buscar Disponibilidad</button>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><br><br>
                             <div id="calendar" ></div>
@@ -353,7 +353,6 @@
     </div>
 </div>
 @include('ver_horas_disponible')
-
 <input type="hidden" id="url" name="url" value="{{url()}}" />
 <nav id="footer">
     <div class="container">
@@ -371,13 +370,15 @@
     </div>
 </nav>
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<link href="{{ asset('plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet" type="text/css" />
 <script src="{{ asset ('plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 
+<script src="{{ asset ('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset ('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 <link href="{{asset('plugins/fullcalendar/fullcalendar.css')}}" rel='stylesheet' />
 <link href="{{asset('plugins/fullcalendar/fullcalendar.print.css')}}" rel='stylesheet' media='print' />
 <script src="{{asset('plugins/fullcalendar/lib/moment.min.js')}}"></script>
-<script src="{{asset('plugins/fullcalendar/lib/jquery.min.js')}}"></script>
 <script src="{{asset('plugins/fullcalendar/fullcalendar.min.js')}}"></script>
 <script src="{{asset('plugins/fullcalendar/es.js')}}"></script>
 <script src="{{asset('template/js/owl.carousel.js')}}"></script>
@@ -388,6 +389,7 @@
 <!-- Javascripts
 ================================================== -->
 <script type="text/javascript" src="{{asset('template/js/main.js')}}"></script>
+
 <script>
 
     function get_especialistas()
@@ -538,7 +540,38 @@
 
     }
     function buscar_horas(){
+        var clinica=$('#clinica').val();
+        var especialidad=$('#especialidad').val();
+        var especialista=$('#especialista').val();
+        if(clinica==0)
+        {
+            alert("Debe seleccionar una clinica");
+        }else {
+            if (especialidad == 0) {
+                alert("Debe seleccionar una especialidad");
+            } else {
+                $.ajax({
+                    url: '{{url()}}/get_disponibilidad',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {clinica: clinica, especialidad: especialidad, especialista: especialista},
+                    success: function (data) {
+                        if(data!=0)
+                        {
+                            var source=JSON.parse(data);
+                            $('#calendar').fullCalendar('removeEvents');
+                            $('#calendar').fullCalendar( 'addEventSource', source);
+                        }else{
+                            alert("No se encontraron dias disponibles");
+                        }
 
+
+                    }
+                });
+            }
+        }
     }
 
     function buscar_horas_final(fecha){
@@ -565,7 +598,27 @@
                     {
                         if(data!=0)
                         {
+                            var t = $('#horas').DataTable();
+                            t.clear().draw();
+                            var array_final=new Array();
+                            var datos=JSON.parse(data);
+                            for(var i=0;i<datos.length;i++)
+                            {
+                                var f=datos[i]["fecha"].split('-');
+                                datos[i]["fecha"]=f[2]+'-'+f[1]+'-'+f[0];
 
+                                var t1=datos[i]["desde"].split(':');
+                                datos[i]["desde"]=t1[0]+':'+t1[1];
+
+                                var t2=datos[i]["hasta"].split(':');
+                                datos[i]["hasta"]=t2[0]+':'+t2[1];
+
+                                var boton='<center><button class="btn btn-primary">Reservar</button></center>';
+                                var info=[datos[i]["fecha"],datos[i]["desde"],datos[i]["hasta"],datos[i]["nombre"],boton];
+                                array_final.push(info);
+                            }
+                            t.rows.add(array_final).draw();
+                            $('#verHorasDisponibles').modal();
                         }else{
                             alert("No se encontraron horas disponibles");
                         }
@@ -608,7 +661,6 @@
                 element.find(".fc-title").append('<center><img src="'+url+'/iconos/ok.png" width="25px" height="25px"/></center>');
                 //element.find(".fc-content").append('<br><center><img src="'+url+'/iconos/ok.png" width="20px" height="20px"/></center>');
                 element.bind('click', function() {
-                    $('#verHorasDisponibles').modal();
                     var fecha=moment(event.start).format("DD-MM-YYYY");
                     buscar_horas_final(fecha);
                 });
@@ -617,22 +669,27 @@
             dayClick: function(date, jsEvent, view) {
 
             },
-            events: [
-                {
-                    start: '2016-12-01T00:00:00',
-                    end:'2016-12-01T23:59:59'
-                },
-                {
-                    start: '2016-12-06T00:00:00',
-                    end:'2016-12-06T23:59:59'
-                },
-                {
-                    start: '2016-12-09T00:00:00',
-                    end:'2016-12-09T23:59:59'
-                },
+        });
 
-            ]
-
+        $('#horas').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true,
+            "language": {
+                "search":"Buscar:",
+                "lengthMenu": "Ver _MENU_ registros por página",
+                "zeroRecords": "<center>No se encontraron registros</center>",
+                "info": "_END_ de _TOTAL_ registros",
+                "infoEmpty": "No se encontraron registros",
+                "infoFiltered": "(Filtrados de _MAX_ total registros)",
+                "paginate":{
+                    "previous":"Anterior",
+                    "next":"Siguiente"
+                }
+            },
         });
     });
 </script>

@@ -17,4 +17,7 @@ Route::post('/get_clinicas','GeneralController@get_clinicas');
 Route::post('/get_especialidades','GeneralController@get_especialidades');
 Route::post('/get_especialistas','GeneralController@get_especialistas');
 Route::post('/get_detalle_hora','GeneralController@get_detalle_hora');
+Route::post('/get_disponibilidad','GeneralController@get_disponibilidad');
+
+
 

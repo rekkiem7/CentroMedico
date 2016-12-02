@@ -16,6 +16,7 @@ use App\Clinica;
 use App\Especialidad;
 use App\Especialista;
 use App\Models\Personalizado;
+use Config;
 
 class GeneralController extends Controller
 {
@@ -67,18 +68,37 @@ class GeneralController extends Controller
         if($especialista==0)
         {
             $datos=Personalizado::get_horas_especialidad($clinica,$especialidad,$fecha);
-            if($datos)
-            {
-                return json_encode($datos);
-            }else{return 0;}
+            if($datos){return json_encode($datos);}else{return 0;}
         }else{
             $datos=Personalizado::get_horas_especialista($clinica,$especialista,$fecha);
-            if($datos)
-            {
-                return json_encode($datos);
-            }else{return 0;}
+            if($datos){return json_encode($datos);}else{return 0;}
+        }
+    }
+
+    public function get_disponibilidad()
+    {
+        $clinica=$_POST['clinica'];
+        $especialidad=$_POST['especialidad'];
+        $especialista=$_POST['especialista'];
+        $fecha=date('Y-m-d');
+        if($especialista==0)
+        {
+            $datos=Personalizado::buscar_disponibilidad_especialidad($clinica,$especialidad,$fecha);
+        }else{
+            $datos=Personalizado::buscar_disponibilidad_especialista($clinica,$especialista,$fecha);
         }
 
+        if($datos) {
+            $jsonArray = array();
+            for ($i = 0; $i < count($datos); $i++) {
+                $buildjson = array("start" => $datos[$i]->fecha . 'T00:00:00', "end" => $datos[$i]->fecha . 'T23:59:59');
+                array_push($jsonArray, $buildjson);
+            }
+
+            return json_encode($jsonArray);
+        }else{return 0;}
+
+        
     }
 
     
