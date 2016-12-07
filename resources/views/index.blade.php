@@ -12,6 +12,8 @@
 .fc h2{
     font-size: 20px !important;
 }
+
+
 </style>
 
 
@@ -304,6 +306,7 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <button type="button" class="btn tf-btn btn-primary" onclick="buscar_horas();"><span class="fa fa-search"></span>  Buscar Disponibilidad</button><br><br>
                         </div>
+                        <div id="div-calendar">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="alert alert-success">
                                 <strong>¡Atención!</strong> Al iniciar la búsqueda, en el <strong>calendario</strong> aparecerán los dias que poseen horas disponibles para la reservación.<br>
@@ -314,6 +317,7 @@
 
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><br><br>
                             <div id="calendar" ></div>
+                        </div>
                         </div>
 
 
@@ -375,9 +379,12 @@
 </nav>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link href="{{ asset('plugins/datatables/dataTables.bootstrap.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('plugins/sweetAlert/sweetalert.css')}}" rel="stylesheet" type="text/css" />
 <script src="{{ asset ('plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-
+<script src="{{ asset ('plugins/sweetAlert/sweetalert.min.js') }}"></script>
+<script src="{{ asset ('plugins/Rut/jquery.Rut.js') }}"></script>
+<script src="{{ asset ('plugins/Rut/jquery.Rut.min.js') }}"></script>
 <script src="{{ asset ('plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset ('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
 <link href="{{asset('plugins/fullcalendar/fullcalendar.css')}}" rel='stylesheet' />
@@ -585,11 +592,12 @@
                             var source=JSON.parse(data);
                             $('#calendar').fullCalendar('removeEvents');
                             $('#calendar').fullCalendar( 'addEventSource', source);
+                            $('html,body').animate({
+                                scrollTop: $("#div-calendar").offset().top
+                            }, 0800);
                         }else{
                             alert("No se encontraron dias disponibles");
                         }
-
-
                     }
                 });
             }
@@ -653,6 +661,7 @@
 
     $(document).ready(function()
     {
+        $('#rut').Rut();
         var url=$('#url').val();
         $('#calendar').fullCalendar({
 
