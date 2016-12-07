@@ -356,6 +356,7 @@
     </div>
 </div>
 @include('ver_horas_disponible')
+@include('formulario_reserva');
 <input type="hidden" id="url" name="url" value="{{url()}}" />
 <nav id="footer">
     <div class="container">
@@ -394,7 +395,25 @@
 <script type="text/javascript" src="{{asset('template/js/main.js')}}"></script>
 
 <script>
+    function reservar_hora(id)
+    {
+        $('#verHorasDisponibles').modal('hide');
+        $.ajax({
+            url: '{{url()}}/update_reservacion',
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data:{id:id,estado:2},
+            success:function(data) {
+                if(data==1) {
+                    $('#id_reserva').val(id);
+                    $('#formulario_reserva').modal();
+                }
+            }
+        });
 
+    }
     function get_especialistas()
     {
         var especialidad=$('#especialidad').val();
@@ -616,7 +635,7 @@
                                 var t2=datos[i]["hasta"].split(':');
                                 datos[i]["hasta"]=t2[0]+':'+t2[1];
 
-                                var boton='<center><button class="btn btn-primary">Reservar</button></center>';
+                                var boton='<center><button class="btn btn-primary" onclick="reservar_hora('+datos[i]["id"]+');">Reservar</button></center>';
                                 var info=[datos[i]["fecha"],datos[i]["desde"],datos[i]["hasta"],datos[i]["nombre"],boton];
                                 array_final.push(info);
                             }

@@ -13,62 +13,62 @@ class TableRegionSeeder extends Seeder
     {
         factory(App\Region::class)->create([
             'nombre'=>'Tarapacá',
-            'visible'=>1
+            'visible'=>0
         ]);
 
         factory(App\Region::class)->create([
             'nombre'=>'Antofagasta',
-            'visible'=>1
+            'visible'=>0
         ]);
 
         factory(App\Region::class)->create([
             'nombre'=>'Atacama',
-            'visible'=>1
+            'visible'=>0
         ]);
 
         factory(App\Region::class)->create([
             'nombre'=>'Coquimbo',
-            'visible'=>1
+            'visible'=>0
         ]);
 
         factory(App\Region::class)->create([
             'nombre'=>'Valparaíso',
-            'visible'=>1
+            'visible'=>0
         ]);
 
         factory(App\Region::class)->create([
             'nombre'=>'O`Higgins',
-            'visible'=>1
+            'visible'=>0
         ]);
 
         factory(App\Region::class)->create([
             'nombre'=>'Maule',
-            'visible'=>1
+            'visible'=>0
         ]);
 
         factory(App\Region::class)->create([
             'nombre'=>'Bio-Bío',
-            'visible'=>1
+            'visible'=>0
         ]);
 
         factory(App\Region::class)->create([
             'nombre'=>'La Araucanía',
-            'visible'=>1
+            'visible'=>0
         ]);
 
         factory(App\Region::class)->create([
             'nombre'=>'Los Lagos',
-            'visible'=>1
+            'visible'=>0
         ]);
 
         factory(App\Region::class)->create([
             'nombre'=>'Aysén',
-            'visible'=>1
+            'visible'=>0
         ]);
 
         factory(App\Region::class)->create([
             'nombre'=>'Magallanes',
-            'visible'=>1
+            'visible'=>0
         ]);
 
         factory(App\Region::class)->create([
@@ -78,12 +78,12 @@ class TableRegionSeeder extends Seeder
 
         factory(App\Region::class)->create([
             'nombre'=>'Los Ríos',
-            'visible'=>1
+            'visible'=>0
         ]);
 
         factory(App\Region::class)->create([
             'nombre'=>'Arica y Parinacota',
-            'visible'=>1
+            'visible'=>0
         ]);
     }
 }

@@ -12,7 +12,7 @@ class TablePlanificacionHoraSeeder extends Seeder
     public function run()
     {
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-02',
+            'fecha'=>'2016-12-07',
             'desde'=>'09:00',
             'hasta'=>'10:00',
             'id_especialista'=>1,
@@ -23,7 +23,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-02',
+            'fecha'=>'2016-12-07',
             'desde'=>'10:00',
             'hasta'=>'11:00',
             'id_especialista'=>1,
@@ -34,7 +34,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-02',
+            'fecha'=>'2016-12-07',
             'desde'=>'11:00',
             'hasta'=>'12:00',
             'id_especialista'=>1,
@@ -45,7 +45,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-02',
+            'fecha'=>'2016-12-07',
             'desde'=>'12:00',
             'hasta'=>'13:00',
             'id_especialista'=>1,
@@ -56,7 +56,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-02',
+            'fecha'=>'2016-12-07',
             'desde'=>'14:00',
             'hasta'=>'15:00',
             'id_especialista'=>1,
@@ -67,7 +67,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-02',
+            'fecha'=>'2016-12-07',
             'desde'=>'15:00',
             'hasta'=>'16:00',
             'id_especialista'=>1,
@@ -78,7 +78,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-02',
+            'fecha'=>'2016-12-07',
             'desde'=>'16:00',
             'hasta'=>'17:00',
             'id_especialista'=>1,
@@ -89,7 +89,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-02',
+            'fecha'=>'2016-12-07',
             'desde'=>'17:00',
             'hasta'=>'18:00',
             'id_especialista'=>1,
@@ -101,7 +101,7 @@ class TablePlanificacionHoraSeeder extends Seeder
 
         /***/
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-02',
+            'fecha'=>'2016-12-07',
             'desde'=>'09:00',
             'hasta'=>'10:00',
             'id_especialista'=>2,
@@ -112,7 +112,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-02',
+            'fecha'=>'2016-12-07',
             'desde'=>'10:00',
             'hasta'=>'11:00',
             'id_especialista'=>2,
@@ -123,7 +123,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-02',
+            'fecha'=>'2016-12-07',
             'desde'=>'11:00',
             'hasta'=>'12:00',
             'id_especialista'=>2,
@@ -134,7 +134,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-02',
+            'fecha'=>'2016-12-07',
             'desde'=>'12:00',
             'hasta'=>'13:00',
             'id_especialista'=>2,
@@ -145,7 +145,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-02',
+            'fecha'=>'2016-12-07',
             'desde'=>'14:00',
             'hasta'=>'15:00',
             'id_especialista'=>2,
@@ -156,7 +156,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-02',
+            'fecha'=>'2016-12-07',
             'desde'=>'15:00',
             'hasta'=>'16:00',
             'id_especialista'=>2,
@@ -167,7 +167,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-02',
+            'fecha'=>'2016-12-07',
             'desde'=>'16:00',
             'hasta'=>'17:00',
             'id_especialista'=>2,
@@ -178,7 +178,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-02',
+            'fecha'=>'2016-12-07',
             'desde'=>'17:00',
             'hasta'=>'18:00',
             'id_especialista'=>2,
@@ -190,7 +190,7 @@ class TablePlanificacionHoraSeeder extends Seeder
 
         /**/
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-05',
+            'fecha'=>'2016-12-09',
             'desde'=>'09:00',
             'hasta'=>'10:00',
             'id_especialista'=>1,
@@ -201,7 +201,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-05',
+            'fecha'=>'2016-12-09',
             'desde'=>'10:00',
             'hasta'=>'11:00',
             'id_especialista'=>1,
@@ -212,7 +212,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-05',
+            'fecha'=>'2016-12-09',
             'desde'=>'11:00',
             'hasta'=>'12:00',
             'id_especialista'=>1,
@@ -223,7 +223,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-05',
+            'fecha'=>'2016-12-09',
             'desde'=>'12:00',
             'hasta'=>'13:00',
             'id_especialista'=>1,
@@ -234,7 +234,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-05',
+            'fecha'=>'2016-12-09',
             'desde'=>'14:00',
             'hasta'=>'15:00',
             'id_especialista'=>1,
@@ -245,7 +245,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-05',
+            'fecha'=>'2016-12-09',
             'desde'=>'15:00',
             'hasta'=>'16:00',
             'id_especialista'=>1,
@@ -256,7 +256,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-05',
+            'fecha'=>'2016-12-09',
             'desde'=>'16:00',
             'hasta'=>'17:00',
             'id_especialista'=>1,
@@ -267,7 +267,7 @@ class TablePlanificacionHoraSeeder extends Seeder
         ]);
 
         factory(App\PlanificacionHora::class)->create([
-            'fecha'=>'2016-12-05',
+            'fecha'=>'2016-12-09',
             'desde'=>'17:00',
             'hasta'=>'18:00',
             'id_especialista'=>1,

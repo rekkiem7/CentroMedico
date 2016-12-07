@@ -16,6 +16,7 @@ use App\Clinica;
 use App\Especialidad;
 use App\Especialista;
 use App\Models\Personalizado;
+use App\PlanificacionHora;
 use Config;
 
 class GeneralController extends Controller
@@ -97,8 +98,14 @@ class GeneralController extends Controller
 
             return json_encode($jsonArray);
         }else{return 0;}
+    }
 
-        
+    public function update_reservacion()
+    {
+        $id=$_POST['id'];
+        $estado=$_POST['estado'];
+        $update=PlanificacionHora::where("id",$id)->update(['estado'=>$estado]);
+        return $update;
     }
 
     
